@@ -12,20 +12,21 @@ class UserBehavior(TaskSet):
     def comment(self):
         from splinter import Browser
 
-        with Browser('phantomjs') as browser:
-   	  
+        with Browser('phantomjs') as browser:   	  
 	# Visit URL
-            url = "http://wootest.rtcamp.net/shop/?add-to-cart=70"
+            url = WebsiteUser.host + "shop/?add-to-cart=70"
             browser.visit(url)
-	    url = "http://wootest.rtcamp.net/checkout/"
+	    url = WebsiteUser.host + "checkout/"
             browser.visit(url)
-            browser.fill('billing_email', 'hello@dfdf.dfdfdfdf')
+ #           browser.fill('billing_email', 'hello@dfdf.dfdfdfdf')
     # Find and click the 'search' button
             button = browser.find_by_name('woocommerce_checkout_place_order')
     # Interact with elements
             button.click()
 
+#	    browser.quit()
 class WebsiteUser(HttpLocust):
+    host = "http://wootest.rtcamp.net/"
     weight = 1
     task_set = UserBehavior
 #    min_wait=5000
